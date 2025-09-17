@@ -1,12 +1,18 @@
+/* === 全局 === */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
   line-height: 1.6;
+  background: #fdfdfd;
 }
 
 header {
   background: #111;
   padding: 12px;
+}
+nav {
+  max-width: 960px;
+  margin: 0 auto;
 }
 nav a {
   color: #fff;
@@ -17,6 +23,13 @@ nav a:hover {
   text-decoration: underline;
 }
 
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* === 欢迎区 === */
 #hero {
   text-align: center;
   padding: 60px 20px;
@@ -32,51 +45,124 @@ nav a:hover {
   color: #2193b0;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 #hero button:hover {
   background: #eee;
 }
 
-#features {
-  max-width: 600px;
+/* === 游戏大厅 === */
+#games {
+  max-width: 960px;
   margin: 40px auto;
-  padding: 0 16px;
-}
-footer {
-  text-align: center;
   padding: 20px;
+  text-align: center;
+}
+#games h2 {
+  margin-bottom: 20px;
+}
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.game-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.game-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.game-btn.disabled {
+  background: #ddd;
   color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* === 响应式：手机端改为一列 === */
+@media (max-width: 768px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+  .game-btn {
+    height: 100px;
+    font-size: 18px;
+  }
 }
 
 
-/* --- Guess Game --- */
-.card {
-  max-width: 600px;
-  margin: 32px auto;
-  padding: 16px;
+
+
+
+/* 让猜数字卡片居中且更紧凑 */
+#guess-game {
+  max-width: 420px;        /* 可调：380~500 看你喜好 */
+  margin: 40px auto;       /* 左右 auto 居中 */
+  padding: 20px;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
 }
-.card h2 { margin-top: 0; }
 
-.row { display: flex; gap: 8px; align-items: center; }
-.row input[type="number"] {
-  flex: 1;
+/* 行内布局：输入框 + 两个按钮一行排好 */
+#guess-game .row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* 输入框/按钮基础样式 */
+#guess-game input[type="number"] {
+  width: 100%;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
 }
-.row button {
+
+#guess-game button {
   padding: 10px 14px;
   border: 0;
   border-radius: 8px;
   cursor: pointer;
+  background: #2193b0;
+  color: #fff;
+  font-weight: 600;
 }
-button.secondary { background: #f3f4f6; }
-button[disabled] { opacity: .6; cursor: not-allowed; }
+#guess-game button.secondary {
+  background: #f3f4f6;
+  color: #111;
+}
+#guess-game button[disabled] {
+  opacity: .6;
+  cursor: not-allowed;
+}
 
-.muted { color: #666; margin: 6px 0 14px; }
+/* 辅助文字与历史 */
+#guess-game .muted { color: #666; margin: 6px 0 14px; }
 #gg-hint { min-height: 24px; font-weight: 600; }
-.history { margin: 10px 0 0; padding-left: 20px; color: #555; }
+#gg-history { margin: 10px 0 0; padding-left: 20px; color: #555; }
+
+/* 小屏优化：改为上下排，方便点触 */
+@media (max-width: 480px) {
+  #guess-game { margin: 20px 12px; }
+  #guess-game .row {
+    grid-template-columns: 1fr;
+  }
+  #guess-game button { width: 100%; }
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>我的个人网站</title>
+  <title>小游戏合集 - 首页</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -11,53 +11,35 @@
   <header>
     <nav>
       <a href="./">首页</a>
-      <a href="./about.html">关于</a>
+      <a href="guess.html">猜数字 🎲</a>
       <a href="https://github.com/baibai-ba" target="_blank">GitHub</a>
     </nav>
   </header>
 
   <!-- 欢迎区 -->
   <section id="hero">
-    <h1>欢迎来到我的网站 🎉</h1>
+    <h1>欢迎来到我的小游戏合集 🎉</h1>
     <p>这是我用 GitHub Pages 发布的第一个小网站。</p>
     <button id="sayHiBtn">点我打招呼</button>
     <p id="hiMsg"></p>
   </section>
 
-  <!-- 功能区 -->
-  <section id="features">
-    <h2>功能演示</h2>
-    <ul>
-      <li>✅ 响应式布局</li>
-      <li>✅ JavaScript 动态交互</li>
-      <li>✅ GitHub Pages 免费托管</li>
-    </ul>
+  <!-- 游戏大厅 -->
+  <section id="games">
+    <h2>可玩游戏</h2>
+    <div class="game-grid">
+      <a href="guess.html" class="game-btn">🎲 猜数字</a>
+      <div class="game-btn disabled">🕹 敬请期待</div>
+      <div class="game-btn disabled">🕹 敬请期待</div>
+      <div class="game-btn disabled">🕹 敬请期待</div>
+    </div>
   </section>
-
-<!-- 猜数字小游戏 -->
-<section id="guess-game" class="card">
-  <h2>猜数字游戏 🎲</h2>
-
-  <p class="muted">我想了一个 1~100 的数字，你有 <span id="gg-tries-left">10</span> 次机会。</p>
-
-  <div class="row">
-    <input id="gg-input" type="number" min="1" max="100" placeholder="输入 1~100 的整数" />
-    <button id="gg-submit">猜！</button>
-    <button id="gg-restart" class="secondary" hidden>再来一局</button>
-  </div>
-
-  <p id="gg-hint"></p>
-  <ul id="gg-history" class="history"></ul>
-</section>
-
-
 
   <!-- 底部 -->
   <footer>
-    <small>© <span id="year"></span> 我的网站</small>
+    <small>© <span id="year"></span> 我的游戏合集</small>
   </footer>
 
   <script src="assets/main.js" defer></script>
-
 </body>
 </html>
