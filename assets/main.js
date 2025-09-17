@@ -1,4 +1,7 @@
+// 显示年份
 document.getElementById("year").textContent = new Date().getFullYear();
-document.getElementById("helloBtn").addEventListener("click", () => {
-  document.getElementById("msg").textContent = "🎯 JS 运行成功！";
+
+// 按钮事件
+document.getElementById("sayHiBtn").addEventListener("click", () => {
+  document.getElementById("hiMsg").textContent = "你好，很高兴见到你！😃";
 });
