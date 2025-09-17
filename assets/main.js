@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== 猜数字游戏 =====
+  // ===== 猜数字小游戏（仅在 guess.html 存在时生效）=====
   const input = document.getElementById("gg-input");
   const submitBtn = document.getElementById("gg-submit");
   const restartBtn = document.getElementById("gg-restart");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let left = 10;
     const guesses = [];
 
-    function rnd() { return Math.floor(Math.random() * 100) + 1; }
+    function rnd() { return Math.floor(Math.random() * 100) + 1; } // 1~100
 
     function setHint(msg, type = "info") {
       hint.textContent = msg;
@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") onGuess(); });
     restartBtn.addEventListener("click", restart);
 
+    // 初始提示
     setHint("我想了一个 1~100 的数字，来猜吧！");
   }
 });

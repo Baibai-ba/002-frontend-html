@@ -4,15 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>小游戏合集 - 首页</title>
+
+  <!-- SEO & 分享 -->
+  <meta name="description" content="小游戏合集：猜数字等轻量小游戏，纯前端，GitHub Pages 托管。" />
+  <meta property="og:title" content="小游戏合集" />
+  <meta property="og:description" content="猜数字等轻量小游戏，开箱即玩。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://baibai-ba.github.io/002-frontend-html/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
   <!-- 导航栏 -->
   <header>
     <nav>
-      <a href="./">首页</a>
+      <a href="./" class="active">首页</a>
       <a href="guess.html">猜数字 🎲</a>
-      <a href="https://github.com/baibai-ba" target="_blank">GitHub</a>
+      <a href="https://github.com/baibai-ba" target="_blank" rel="noopener noreferrer">GitHub</a>
     </nav>
   </header>
 
@@ -24,7 +34,7 @@
     <p id="hiMsg"></p>
   </section>
 
-  <!-- 游戏大厅 -->
+  <!-- 游戏大厅（1 行 4 个大按钮） -->
   <section id="games">
     <h2>可玩游戏</h2>
     <div class="game-grid">
