@@ -1,55 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>猜数字 · 我的小游戏站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>猜数字 · 白霸的小游戏合集</title>
 
-  <!-- 资源：注意从 /pages/ 相对回到上一级 -->
-  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../assets/favicon.ico" />
   <link rel="stylesheet" href="../assets/base.css" />
-  <!-- 复用我们现有的游戏样式 -->
   <link rel="stylesheet" href="../assets/components/games.css" />
 </head>
-<body>
-  <!-- 统一导航 -->
+
+<body class="no-checkin">
   <header data-include="../components/header.html" data-assets="css"></header>
 
-
   <main class="container">
-    <section class="card">
-      <a href="../index.html" class="game-btn" style="text-decoration:none;">← 返回首页</a>
-    </section>
+    <section id="guess-app" class="game-card slim">
+      <header class="game-head">
+        <h1>猜数字</h1>
+        <p class="sub">范围 <strong>1–100</strong>，共有 <strong>10</strong> 次机会。尽量用更少次数命中！</p>
+      </header>
 
-    <!-- 这里就是原来“猜数字”的那张卡片（保持 id / class 不变以复用现有 JS） -->
-    <section class="games">
-      <article class="game-card" id="game-guess">
-        <header class="game-card__head">
-          <h3 class="game-card__title">猜数字（1~100）</h3>
-          <button class="game-card__reset" type="button" data-role="reset">再来一局</button>
-        </header>
+      <!-- 历史记录（放在上方，横向chips，可滚动） -->
+      <div class="history-wrap">
+        <div class="history-title">历史记录</div>
+        <div id="history-chips" class="chips" aria-live="polite"></div>
+      </div>
 
-        <div class="game-card__body">
-          <p class="game-card__desc">我想了一个 <strong>1~100</strong> 的数字，你有 <strong>10</strong> 次机会。</p>
+      <!-- 输入 + 单按钮（首次=开始新局，其后=提交） -->
+      <form id="guess-form" class="guess-form compact" autocomplete="off">
+        <input id="guess-input" type="number" inputmode="numeric" placeholder="输入 1–100，回车提交" />
+        <button id="action-btn" class="btn primary" type="submit">开始游戏</button>
+      </form>
 
-          <div class="game-card__controls">
-            <label class="sr-only" for="guess-input">你的猜测</label>
-            <input id="guess-input" class="game-input" type="number" min="1" max="100" placeholder="输入 1~100 的整数" />
-            <button class="game-btn" type="button" data-role="submit">猜！</button>
-          </div>
-
-          <div class="game-card__info" id="guess-info">准备开始～</div>
-          <div class="game-card__history" id="guess-history"></div>
+      <!-- 状态区（精简） -->
+      <div class="status compact">
+        <div id="feedback" class="feedback">点击“开始游戏”生成目标数字。</div>
+        <div class="meta">
+          <span id="left">剩余次数：—</span>
         </div>
-      </article>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer">© 我的游戏合集</footer>
+  <!-- 命中弹窗 -->
+  <div id="guess-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__box">
+      <h3>🎉 命中！</h3>
+      <p id="modal-text">答案是 87，用了 7 次。</p>
+      <div class="modal__actions">
+        <button id="btn-again" class="btn primary" type="button">再来一局</button>
+        <button id="btn-close" class="btn subtle" type="button">关闭</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- 先加载通用 loader（用于 header 组件） -->
   <script src="../assets/loader.js"></script>
-  <!-- 再加载已有的猜数字逻辑（直接复用你已经有的文件） -->
   <script src="../assets/components/games.js"></script>
 </body>
 </html>

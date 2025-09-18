@@ -1,4 +1,19 @@
-/* ===== 可玩游戏入口大厅 ===== */
+/* =========================================================================
+   变量（可按需覆盖）
+   ========================================================================= */
+:root{
+  --card-bg: #0e1524;
+  --card-border: #1a2537;
+  --panel-bg: #0b1322;
+  --panel-border: #142238;
+  --ink: #e6edf3;
+  --ink-weak: #9fb2c8;
+  --text: #dbe6f1;            /* 入口大厅卡片里用到 */
+}
+
+/* =========================================================================
+   可玩游戏入口大厅（首页）
+   ========================================================================= */
 
 /* 栏目标题 */
 .games h2{
@@ -81,3 +96,167 @@
 @media (max-width: 520px){
   .game-list{ grid-template-columns: 1fr; }
 }
+
+/* =========================================================================
+   猜数字 页面布局与组件（/pages/guess.html）
+   ========================================================================= */
+
+/* 基础卡片布局 */
+.game-card{
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  color: var(--text);
+  margin: 20px auto;
+  max-width: 880px;
+}
+
+.game-head h1{
+  margin: 0 0 4px 0;
+  font-size: 1.6rem;
+  color: #fff;
+}
+.game-head .sub{
+  margin: 0 0 14px 0;
+  color: var(--ink-weak);
+  font-size: .95rem;
+}
+
+/* 控制区（难度 + 开始/重置） */
+.controls{
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 10px;
+  background: #0b1322;
+  margin-bottom: 14px;
+}
+.controls .control{
+  display: inline-flex; align-items: center; gap: 8px;
+  color: #cfe6ff;
+}
+.controls select{
+  background: #0a0f1a; color:var(--text); border:1px solid var(--card-border); border-radius:10px;
+  padding: 6px 10px;
+}
+.controls .btns{ display: inline-flex; gap: 8px; }
+
+/* 输入区 */
+.guess-form{
+  display: grid; grid-template-columns: 1fr auto; gap: 10px;
+  margin-bottom: 14px;
+}
+.guess-form input{
+  background: #0a0f1a; color:#eaf4ff; border:1px solid var(--card-border); border-radius:10px;
+  padding: 10px; font-size: 1rem;
+}
+.guess-form input::placeholder{ color:#6d7d93; }
+.guess-form .btn{ padding: 10px 14px; }
+
+/* 面板区（状态 + 历史） */
+.panels{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+@media (max-width: 720px){
+  .panels{ grid-template-columns: 1fr; }
+}
+
+.panel{
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.panel-title{
+  font-weight: 700; color:var(--ink); margin-bottom: 8px;
+}
+
+/* 反馈与 Meta */
+.feedback{
+  padding: 10px; border-radius: 10px; background: #0a0f1a; border:1px solid var(--card-border);
+  min-height: 42px;
+}
+.feedback.ok{ border-color:#1c7f4e; background: #0b1f17; color:#b9f1d4; }
+.feedback.warn{ border-color:#7f6b1c; background: #1f1c0b; color:#f1e3b9; }
+.feedback.err{ border-color:#a33b3b; background: #260f12; color:#ffc9c9; }
+
+.meta{ margin-top: 8px; display: flex; gap: 12px; flex-wrap: wrap; color:var(--ink-weak); }
+
+/* 历史记录 */
+.history{
+  margin: 0; padding-left: 20px; min-height: 42px;
+}
+.history li{
+  margin: 2px 0; color:#cfe6ff;
+}
+
+/* 按钮基类（与项目主题协调） */
+.btn{
+  border: 1px solid var(--card-border); border-radius: 10px;
+  background: #0e1628; color:var(--ink); padding: 8px 12px;
+  cursor: pointer; font-weight: 600;
+  transition: filter .2s ease, background .2s ease;
+}
+.btn:hover{ filter: brightness(1.1); }
+.btn.primary{
+  background: linear-gradient(135deg, #3bd0ff, #2dd4bf);
+  color:#0a1020; border-color: transparent;
+}
+.btn.subtle{ background: #09101e; color:var(--ink-weak); }
+
+/* 无障碍隐藏文本工具类 */
+.visually-hidden{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  border:0;
+}
+
+
+/* ===== 轻量版猜数字：紧凑排版 ===== */
+.game-card.slim { max-width: 760px; }
+
+/* 顶部历史 chips */
+.history-wrap { margin: 6px 0 12px; }
+.history-wrap .history-title {
+  font-size: .92rem; color: var(--ink-weak); margin-bottom: 6px;
+}
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.chip {
+  border: 1px solid var(--panel-border);
+  background: #0a0f1a; color: var(--text);
+  border-radius: 999px; padding: 6px 10px; white-space: nowrap;
+  font-size: .92rem;
+}
+.chip.ok   { border-color:#1c7f4e; background:#0b1f17; color:#b9f1d4; }
+.chip.low  { border-color:#2b4b86; background:#0b1322; color:#cfe6ff; }
+.chip.high { border-color:#7f6b1c; background:#1f1c0b; color:#f1e3b9; }
+
+/* 紧凑输入区/状态区 */
+.guess-form.compact { grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 10px; }
+.status.compact .feedback { min-height: 38px; }
+.status.compact .meta { margin-top: 6px; color: var(--ink-weak); }
+
+/* ===== 弹窗 ===== */
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  display: none; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal.open { display: flex; }
+.modal__box {
+  width: min(92vw, 420px);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  color: var(--text);
+  text-align: center;
+}
+.modal__box h3{ margin: 0 0 6px; color: #fff; }
+.modal__actions{ display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
