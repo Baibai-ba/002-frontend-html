@@ -31,11 +31,12 @@ body{
 .card{
   background: var(--card-bg) !important;
   color: var(--text);
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(255,255,255,.04);   /* 更细腻的边框 */
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,.28);   /* 更柔的阴影 */
   padding: 16px;
 }
+
 
 /* 顶部/底部 */
 .site-footer{
@@ -102,4 +103,17 @@ main {
   font-size: .95rem;
   border-top: 1px solid var(--card-border);
   margin-top: 36px;
+}
+
+/* 两栏布局：左主右侧 */
+.layout-2col{
+  display: grid;
+  grid-template-columns: 3fr 1.2fr; /* 左宽右窄 */
+  gap: 24px;
+}
+.layout-left > .card,
+.layout-right > .card{ margin: 0; } /* 卡片紧贴网格 */
+
+@media (max-width: 960px){
+  .layout-2col{ grid-template-columns: 1fr; }
 }

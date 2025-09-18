@@ -1,71 +1,83 @@
-/* 游戏入口大厅（桌面端：一行4个） */
+/* ===== 可玩游戏入口大厅 ===== */
+
+/* 栏目标题 */
+.games h2{
+  font-size: 1.3rem;
+  letter-spacing: .3px;
+  margin: 6px 0 14px;
+}
+
+/* 四列栅格（随屏幕自适应降列） */
 .game-list{
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr)); /* 每个至少220px，更宽更舒服 */
-  gap: 28px;
+  grid-template-columns: repeat(4, minmax(240px, 1fr)); /* 桌面端一行4个 */
+  gap: 30px;
 }
 
-/* 入口卡片尺寸放大 */
+/* 入口卡片 */
 .game-entry{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height: 180px;                    /* 高一点，显得厚实 */
-  padding: 28px 16px;
-  border-radius:16px;
-  background:#0f1a2b;
-  border: 1px solid var(--card-border);
-  text-decoration:none; color: var(--text);
-  transition: background .2s, transform .2s, box-shadow .2s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  min-height: 190px;
+  padding: 28px 18px;
+  border-radius: 18px;
+
+  background:#0f1a2b;                               /* 深色主题下的卡片底色 */
+  border: 1px solid rgba(255,255,255,.04);
+  color: var(--text);
+  text-decoration:none;
+
+  transition: transform .2s, box-shadow .2s, background .2s, filter .2s;
+  outline: none;                                     /* 统一用自定义 focus */
 }
 .game-entry:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(0,0,0,.35);
   background:#112036;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.25);
 }
-.game-entry__icon{ font-size:2.4rem; margin-bottom:12px; }
-.game-entry__title{ font-weight:600; font-size:1.05rem; }
-.game-entry.disabled{ opacity:.6; cursor:not-allowed; }
+.game-entry:focus-visible{
+  box-shadow: 0 0 0 3px rgba(56,189,248,.4), 0 16px 30px rgba(0,0,0,.35);
+  transform: translateY(-2px);
+}
 
-/* 让“已上线”的第一个卡片更像昨天那种高亮渐变（可选） */
+/* 首个“已上线”的卡片使用渐变高亮 */
 .game-entry:not(.disabled):first-child{
-  background: linear-gradient(135deg, #34c6f3, #2bd4d8);
-  color: #0a1020;
+  background: linear-gradient(135deg, #3bd0ff 0%, #2dd4bf 100%);
+  color:#0a1020;
   border-color: transparent;
 }
 .game-entry:not(.disabled):first-child:hover{
-  filter: brightness(1.05);
+  filter: brightness(1.04);
 }
 
-/* 响应式（小屏自动降列） */
-@media (max-width: 1024px){
-  .game-list{ grid-template-columns: repeat(3, minmax(200px, 1fr)); }
+/* 占位卡片（不可点击） */
+.game-entry.disabled{
+  opacity:.6;
+  cursor: not-allowed;
+  user-select: none;
 }
-@media (max-width: 768px){
-  .game-list{ grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+
+/* 卡片内部排版 */
+.game-entry__icon{
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  line-height: 1;
 }
-@media (max-width: 480px){
+.game-entry__title{
+  font-weight: 700;
+  font-size: 1.06rem;
+}
+
+/* 响应式断点：逐级降列，保证卡片不挤 */
+@media (max-width: 1200px){
+  .game-list{ grid-template-columns: repeat(3, minmax(220px,1fr)); }
+}
+@media (max-width: 900px){
+  .game-list{ grid-template-columns: repeat(2, minmax(200px,1fr)); }
+}
+@media (max-width: 520px){
   .game-list{ grid-template-columns: 1fr; }
 }
-
-
-
-/* 深色主题适配：入口大厅与卡片 */
-.game-entry{
-  background: #0f1a2b;
-  border: 1px solid var(--card-border);
-  color: var(--text);
-}
-.game-entry:hover{ background:#112036; }
-
-.game-card{
-  background: var(--card-bg) !important;
-  border: 1px solid var(--card-border);
-  color: var(--text);
-}
-.game-card__reset{ background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--card-border); }
-.game-card__reset:hover{ background: var(--btn-bg-hover); }
-
-.game-btn{ background: var(--accent); color:#081018; border: none; }
-.game-btn:hover{ background: var(--accent-2); }
-
-.game-card__info{ color: var(--text); }
-.game-card__history{ color: var(--muted); }

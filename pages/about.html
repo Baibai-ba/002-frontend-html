@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>关于本站 · 我的小游戏站</title>
+  <title>关于本站 · 白霸的小游戏合集</title>
   <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../assets/base.css" />
 </head>
-<body>
-  <!-- 导航 -->
-  <header data-include="../components/header.html"></header>
+<body class="no-checkin">  <!-- 🔹这一行：给页面打个标记，隐藏签到按钮 -->
+
+  <!-- 导航（只加载CSS，确保样式统一；不会再去探测 header.js） -->
+  <header data-include="../components/header.html" data-assets="css"></header>
 
   <main class="container">
     <section class="card">
@@ -25,7 +26,7 @@
     <section class="card">
       <h2>当前功能</h2>
       <ul>
-        <li>👋 <strong>打招呼 + 签到</strong>：点击按钮，日历会记录今日签到。</li>
+        <li>👋 <strong>签到</strong>：点击按钮，日历会记录今日签到。</li>
         <li>🎮 <strong>猜数字游戏</strong>：经典 1~100 猜数，10 次机会。</li>
         <li>📱 <strong>自适应布局</strong>：在手机/电脑上都能正常访问。</li>
         <li>🔗 <strong>导航/404 页面</strong>：统一风格，方便跳转。</li>
@@ -37,19 +38,19 @@
       <ol>
         <li>✨ 增加更多小游戏（比如反应力测试、记忆卡片）。</li>
         <li>🏆 添加 <strong>排行榜/本地成绩保存</strong>。</li>
-        <li>🎨 优化主题色与样式，让界面更统一。</li>
-        <li>📄 增加文档/速查表入口（如 <a href="../docs/git-cheatsheet.txt">git-cheatsheet</a>）。</li>
+        <li>🎨 优化主题和样式，让界面更统一。</li>
+        <li>📄 增加文档入口（如 <a href="../docs/git-cheatsheet.txt">git-cheatsheet</a>）。</li>
       </ol>
     </section>
 
     <section class="card">
       <h2>联系</h2>
       <p>项目地址：<a href="https://github.com/Baibai-ba/002-frontend-html" target="_blank">GitHub 仓库</a></p>
-      <p>如果你有建议，欢迎提交 issue 或 PR！</p>
+      <p>如果你有建议，欢迎提 issue 或 PR！</p>
     </section>
   </main>
 
-  <footer class="site-footer">© 我的游戏合集</footer>
+  <footer class="site-footer">© 白霸的小游戏合集</footer>
   <script src="../assets/loader.js"></script>
 </body>
 </html>

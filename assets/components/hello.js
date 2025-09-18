@@ -1,14 +1,17 @@
 (function () {
   // —— 配置 ——
-  const STORAGE_KEY = 'checkin_dates_v1'; // 存 yyyy-mm-dd 数组
-  const helloSelector = '.hello-btn';
+  const STORAGE_KEY = 'checkin_dates_v1';           // 存 yyyy-mm-dd 数组
+  const helloSelector = '.hello-btn, .checkin-btn'; // 支持右上角按钮
 
   // —— DOM 引用 ——
   const modal = document.getElementById('helloModal');
-  const grid = document.getElementById('helloCalGrid');
+  const grid  = document.getElementById('helloCalGrid');
   const label = document.getElementById('helloCalLabel');
   const prevBtn = document.getElementById('helloCalPrev');
   const nextBtn = document.getElementById('helloCalNext');
+
+  // 若本页未引入 hello.html（如 about/guess/404），直接退出
+  if (!modal || !grid || !label || !prevBtn || !nextBtn) return;
 
   // —— 日期工具 ——
   const pad2 = (n) => (n < 10 ? '0' + n : '' + n);
@@ -111,7 +114,7 @@
     render(d.getFullYear(), d.getMonth(), set);
   });
 
-  // “打招呼/签到”按钮
+  // 绑定“签到”触发（右上角按钮/其他按钮）
   document.addEventListener('click', (e) => {
     const btn = e.target.closest(helloSelector);
     if (!btn) return;
@@ -128,7 +131,7 @@
     openModal();
   });
 
-  // 首次（不弹层）准备当月视图，确保切月可用
+  // 初始化当月视图（不弹层）
   (function initFirstView() {
     const set = loadSet();
     const now = new Date();

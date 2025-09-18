@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>我的小游戏站</title>
+  <title>白霸的小游戏合集</title>
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="assets/base.css" />
 </head>
 <body>
-  <!-- 顶部导航也可以做成组件：先用占位，之后再补 -->
-  <header data-include="components/header.html"></header>
+  <!-- 顶部导航：只需样式，不需要 JS -->
+  <header data-include="components/header.html" data-assets="css"></header>
 
   <main class="container">
-    <!-- 打招呼 / 签到 组件占位 -->
-    <section data-include="components/hello.html"></section>
-
-    <!-- 可玩游戏区 组件占位 -->
+    <!-- 游戏列表：需要 HTML + CSS + JS -->
     <section data-include="components/games.html"></section>
   </main>
 
-  <footer class="site-footer">© 我的游戏合集</footer>
+  <!-- 签到弹层（隐藏，但需要 HTML + CSS + JS 才能工作） -->
+  <div data-include="components/hello.html"></div>
 
-  <!-- 通用加载器：负责把上面的 data-include 填充进来 -->
+  <footer class="site-footer">© 白霸的小游戏合集</footer>
+
+  <!-- 通用加载器 -->
   <script src="assets/loader.js"></script>
 </body>
 </html>
