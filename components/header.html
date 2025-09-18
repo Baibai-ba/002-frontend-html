@@ -1,16 +1,21 @@
 <div class="site-header">
   <div class="topbar container">
-    <!-- 左：导航 -->
-    <nav class="site-nav">
-      <a href="../index.html">首页</a>
-      <a href="../pages/about.html">关于</a>
+    <!-- 左：导航（移动端用汉堡按钮折叠） -->
+    <button class="nav-toggle" type="button" aria-label="打开导航" aria-controls="site-nav" aria-expanded="false">
+      <!-- 简单汉堡图标，用3条线 -->
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="主导航">
+      <a data-href="index.html">首页</a>
+      <a data-href="pages/about.html">关于</a>
       <a href="https://github.com/Baibai-ba/002-frontend-html" target="_blank" rel="noopener">GitHub</a>
     </nav>
 
-    <!-- 中：站点标题（改为“白霸的小游戏合集”） -->
+    <!-- 中：站点标题 -->
     <div class="site-title">白霸的小游戏合集</div>
 
-    <!-- 右：签到按钮（先只是位置，下一步接功能） -->
+    <!-- 右：签到按钮 -->
     <div class="site-actions">
       <button class="checkin-btn" type="button">签到</button>
     </div>

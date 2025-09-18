@@ -1,12 +1,12 @@
-/* 顶部条整体风格（深色） */
-.site-header{
-  background:#0a0f1a;
-  color:#fff;
-  border-bottom:1px solid #141c2b;
+/* === 顶部条整体风格（深色主题） === */
+.site-header {
+  background: #0a0f1a;
+  color: #fff;
+  border-bottom: 1px solid #141c2b;
 }
 
-/* 三栏布局：左(导航) / 中(标题) / 右(动作) */
-.topbar{
+/* === 三栏布局：左(导航) / 中(标题) / 右(动作) === */
+.topbar {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr; /* 中间列用于居中标题 */
   align-items: center;
@@ -14,56 +14,127 @@
   padding: 10px 0;
 }
 
-/* 左：导航 */
-.site-nav{
-  display:flex; gap:16px; align-items:center;
+/* === 左：导航区 === */
+.site-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
 }
-.site-nav a{
-  color:#dbe6f1; opacity:.9; text-decoration:none;
+.site-nav a {
+  color: #dbe6f1;
+  opacity: .9;
+  text-decoration: none;
+  transition: all .2s ease;
 }
-.site-nav a:hover, .site-nav a.active{ opacity:1; text-decoration: underline; color:#fff; }
+.site-nav a:hover,
+.site-nav a.active {
+  opacity: 1;
+  text-decoration: underline;
+  color: #fff;
+}
 
-/* 中：标题（真正居中） */
-.site-title{
+/* === 中：站点标题 === */
+.site-title {
   justify-self: center;
   font-weight: 800;
-  font-size: 1.9rem;      /* 原 1.4~1.8 可换成 1.9，更精神 */
+  font-size: 1.9rem;       /* 更精神的标题字号 */
   letter-spacing: .6px;
-  color:#eef4fb;
-  text-shadow: 0 1px 0 rgba(0,0,0,.3);
+  color: #eef4fb;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
 }
 
-
-
-/* 右：动作区（签到按钮先小巧一些） */
-.site-actions{
+/* === 右：动作区（签到按钮） === */
+.site-actions {
   justify-self: end;
 }
-.checkin-btn{
+.checkin-btn {
   padding: 6px 14px;
   border-radius: 10px;
   border: none;
   background: linear-gradient(135deg, #3bd0ff, #2dd4bf);
   color: #0a1020;
   font-weight: 600;
+  cursor: pointer;
+  transition: filter .2s ease;
 }
-.checkin-btn:hover{ filter: brightness(1.05); }
+.checkin-btn:hover {
+  filter: brightness(1.05);
+}
 
-
-/* 小屏时收紧 */
-@media (max-width: 640px){
-  .topbar{ grid-template-columns: 1fr auto 1fr; }
-  .site-title{
+/* === 小屏时自适应收紧 === */
+@media (max-width: 640px) {
+  .topbar {
+    grid-template-columns: 1fr auto 1fr;
+  }
+  .site-title {
     justify-self: center;
     font-weight: 700;
-    font-size: 1.2rem;    /* 🔹放大标题 */
+    font-size: 1.2rem;     /* 小屏时缩小标题 */
     letter-spacing: .5px;
-    color:#e6edf3;
+    color: #e6edf3;
   }
-  .checkin-btn{ padding: 6px 10px; }
+  .checkin-btn {
+    padding: 6px 10px;
+  }
+}
+
+/* === 页面不需要签到时（如 about/guess/404），隐藏右上角按钮 === */
+.no-checkin .site-actions,
+.no-checkin .checkin-btn {
+  display: none;
 }
 
 
-/* 页面不需要签到时（如 about/guess/404），隐藏右上角按钮 */
-.no-checkin .site-actions,
-.no-checkin .checkin-btn { display: none; }
+/* === 汉堡按钮（小屏显示） === */
+.nav-toggle {
+  display: none;               /* 默认隐藏，窄屏再显示 */
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 36px;
+  border: 1px solid #1a2537;
+  border-radius: 10px;
+  background: #0e1524;
+  color: #dbe6f1;
+  cursor: pointer;
+}
+.nav-toggle .bar {
+  display: block;
+  width: 18px; height: 2px;
+  background: #dbe6f1;
+  margin: 2.5px 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+/* 打开态的动画（可选） */
+.site-header.nav-open .nav-toggle .bar:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
+.site-header.nav-open .nav-toggle .bar:nth-child(2) { opacity: 0; }
+.site-header.nav-open .nav-toggle .bar:nth-child(3) { transform: translateY(-4.5px) rotate(-45deg); }
+
+/* === 响应式：小屏折叠导航 === */
+@media (max-width: 640px) {
+  .topbar { grid-template-columns: auto 1fr auto; }  /* 左:汉堡 中:标题 右:动作 */
+
+  /* 小屏时：导航默认隐藏为抽屉/弹层风格 */
+  .site-nav {
+    position: absolute;
+    top: 56px;                /* 顶栏高度后面一点 */
+    left: 0; right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #0a0f1a;
+    border-bottom: 1px solid #141c2b;
+    z-index: 999;
+  }
+  .site-nav a { padding: 6px 2px; }
+
+  /* 打开态：显示导航 */
+  .site-header.nav-open .site-nav { display: flex; }
+
+  /* 显示汉堡按钮 */
+  .nav-toggle { display: inline-flex; }
+
+  /* 调整标题尺寸（你旧样式已含，这里可复用或覆盖） */
+  .site-title { font-size: 1.2rem; font-weight: 700; }
+}
