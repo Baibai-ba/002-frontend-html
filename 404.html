@@ -1,11 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<meta charset="utf-8" />
-<title>页面未找到</title>
-<style>
-  body { font-family: system-ui; padding: 40px; text-align: center; line-height: 1.6; }
-  a { color: #2193b0; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-</style>
-<h1>404</h1>
-<p>这个页面走丢了。<a href="./">回到首页</a></p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>页面走丢了 · 404</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/base.css" />
+</head>
+<body>
+  <!-- 404 必须在根目录，但依然可以 include 组件 -->
+  <header data-include="components/header.html"></header>
+
+  <main class="container">
+    <section class="card" style="text-align:center;">
+      <h2>404 - 页面走丢了</h2>
+      <p>你可以返回首页，或者检查一下链接是否正确。</p>
+      <p><a class="game-btn" href="index.html">返回首页</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">© 我的游戏合集</footer>
+  <script src="assets/loader.js"></script>
+</body>
+</html>

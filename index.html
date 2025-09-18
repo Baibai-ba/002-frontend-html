@@ -1,55 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>小游戏合集 - 首页</title>
-
-  <!-- SEO & 分享 -->
-  <meta name="description" content="小游戏合集：猜数字等轻量小游戏，纯前端，GitHub Pages 托管。" />
-  <meta property="og:title" content="小游戏合集" />
-  <meta property="og:description" content="猜数字等轻量小游戏，开箱即玩。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://baibai-ba.github.io/002-frontend-html/" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.ico" />
-  <link rel="stylesheet" href="assets/style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>我的小游戏站</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/base.css" />
 </head>
 <body>
-  <!-- 导航栏 -->
-  <header>
-    <nav>
-      <a href="./" class="active">首页</a>
-      <a href="guess.html">猜数字 🎲</a>
-      <a href="https://github.com/baibai-ba" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </nav>
-  </header>
+  <!-- 顶部导航也可以做成组件：先用占位，之后再补 -->
+  <header data-include="components/header.html"></header>
 
-  <!-- 欢迎区 -->
-  <section id="hero">
-    <h1>欢迎来到我的小游戏合集 🎉</h1>
-    <p>这是我用 GitHub Pages 发布的第一个小网站。</p>
-    <button id="sayHiBtn">点我打招呼</button>
-    <p id="hiMsg"></p>
-  </section>
+  <main class="container">
+    <!-- 打招呼 / 签到 组件占位 -->
+    <section data-include="components/hello.html"></section>
 
-  <!-- 游戏大厅（1 行 4 个大按钮） -->
-  <section id="games">
-    <h2>可玩游戏</h2>
-    <div class="game-grid">
-      <a href="guess.html" class="game-btn">🎲 猜数字</a>
-      <div class="game-btn disabled">🕹 敬请期待</div>
-      <div class="game-btn disabled">🕹 敬请期待</div>
-      <div class="game-btn disabled">🕹 敬请期待</div>
-    </div>
-  </section>
+    <!-- 可玩游戏区 组件占位 -->
+    <section data-include="components/games.html"></section>
+  </main>
 
-  <!-- 底部 -->
-  <footer>
-    <small>© <span id="year"></span> 我的游戏合集</small>
-  </footer>
+  <footer class="site-footer">© 我的游戏合集</footer>
 
-  <script src="assets/main.js" defer></script>
+  <!-- 通用加载器：负责把上面的 data-include 填充进来 -->
+  <script src="assets/loader.js"></script>
 </body>
 </html>
