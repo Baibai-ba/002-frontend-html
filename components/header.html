@@ -8,7 +8,6 @@
       aria-controls="site-nav"
       aria-expanded="false"
     >
-      <!-- 简单汉堡图标，用3条线 -->
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
       <span class="bar" aria-hidden="true"></span>
@@ -16,19 +15,15 @@
 
     <!-- 主导航 -->
     <nav id="site-nav" class="site-nav" aria-label="主导航" role="navigation">
-      <!-- 内部链接统一用 data-href，loader.js 会修正为带前缀的 href 并自动高亮 -->
       <a data-href="index.html">首页</a>
       <a data-href="pages/about.html">关于</a>
-      <!-- 外部链接直接写 href -->
       <a href="https://github.com/Baibai-ba/002-frontend-html" target="_blank" rel="noopener noreferrer">GitHub</a>
     </nav>
 
-    <!-- 中：站点标题（可点返回首页） -->
-    <div class="site-title">
-      <a class="site-title__link" data-href="index.html">白霸的小游戏合集</a>
-    </div>
+    <!-- 中：站点标题（改为不可点击的纯文本） -->
+    <div class="site-title">白霸的小游戏合集</div>
 
-    <!-- 右：签到按钮（由 hello 组件/脚本接管） -->
+    <!-- 右：签到按钮 -->
     <div class="site-actions">
       <button class="checkin-btn" type="button" aria-haspopup="dialog">签到</button>
     </div>

@@ -1,55 +1,119 @@
 /* ========= 猜数字 1–100（独立样式） ========= */
-:root{
-  --card-bg:#0e1524; --card-border:#1a2537;
-  --panel-bg:#0b1322; --panel-border:#142238;
-  --ink:#e6edf3; --ink-weak:#9fb2c8; --text:#dbe6f1;
-}
 
-/* 卡片容器（沿用你全站深色风格） */
-.game-card{ background:var(--card-bg); border:1px solid var(--card-border);
-  border-radius:16px; padding:18px; box-shadow:0 6px 20px rgba(0,0,0,.35);
-  color:var(--text); margin:20px auto; max-width:880px; }
+/* 卡片容器（沿用全站深色风格变量） */
+.game-card{
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  color: var(--text);
+  margin: 20px auto;
+  max-width: 880px;
+}
 .game-card.slim{ max-width:760px; }
 
-.game-head h1{ margin:0 0 4px; font-size:1.6rem; color:#fff; }
-.game-head .sub{ margin:0 0 14px; color:var(--ink-weak); font-size:.95rem; }
+.game-head h1{
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  /* 颜色继承全局：h1 { color: var(--heading); } */
+}
+.game-head .sub{
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: .95rem;
+}
 
 /* 顶部历史 chips */
 .history-wrap{ margin:6px 0 12px; }
-.history-wrap .history-title{ font-size:.92rem; color:var(--ink-weak); margin-bottom:6px; }
-.chips{ display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
-.chip{ border:1px solid var(--panel-border); background:#0a0f1a; color:var(--text);
-  border-radius:999px; padding:6px 10px; white-space:nowrap; font-size:.92rem; }
-.chip.ok{ border-color:#1c7f4e; background:#0b1f17; color:#b9f1d4; }
+.history-wrap .history-title{
+  font-size:.92rem; color:var(--muted); margin-bottom:6px;
+}
+.chips{
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;
+}
+.chip{
+  border:1px solid var(--card-border);
+  background: var(--input-bg);
+  color: var(--text);
+  border-radius:999px; padding:6px 10px; white-space:nowrap; font-size:.92rem;
+}
+.chip.ok{  border-color:#1c7f4e; background:#0b1f17; color:#b9f1d4; }
 .chip.low{ border-color:#2b4b86; background:#0b1322; color:#cfe6ff; }
 .chip.high{ border-color:#7f6b1c; background:#1f1c0b; color:#f1e3b9; }
 
 /* 输入与状态（紧凑） */
-.guess-form{ display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:10px; }
-.guess-form input{ background:#0a0f1a; color:#eaf4ff; border:1px solid var(--card-border);
-  border-radius:10px; padding:10px; font-size:1rem; }
+.guess-form{
+  display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:10px;
+}
+.guess-form input{
+  background: var(--input-bg);
+  color: var(--text);
+  border:1px solid var(--input-border);
+  border-radius:10px; padding:10px; font-size:1rem;
+}
 .guess-form input::placeholder{ color:#6d7d93; }
+.guess-form input:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
-.status .feedback{ padding:10px; border-radius:10px; background:#0a0f1a;
-  border:1px solid var(--card-border); min-height:38px; }
-.feedback.ok{ border-color:#1c7f4e; background:#0b1f17; color:#b9f1d4; }
+/* 状态区 */
+.status .feedback{
+  padding:10px; border-radius:10px; background: var(--input-bg);
+  border:1px solid var(--card-border); min-height:38px;
+}
+.feedback.ok{   border-color:#1c7f4e; background:#0b1f17; color:#b9f1d4; }
 .feedback.warn{ border-color:#7f6b1c; background:#1f1c0b; color:#f1e3b9; }
-.feedback.err{ border-color:#a33b3b; background:#260f12; color:#ffc9c9; }
-.status .meta{ margin-top:6px; color:var(--ink-weak); }
+.feedback.err{  border-color:#a33b3b; background:#260f12; color:#ffc9c9; }
+.status .meta{ margin-top:6px; color: var(--muted); }
 
-/* 按钮 */
-.btn{ border:1px solid var(--card-border); border-radius:10px; background:#0e1628;
-  color:var(--ink); padding:8px 12px; cursor:pointer; font-weight:600;
-  transition:filter .2s ease, background .2s ease; }
+/* 按钮（组件内自定义按钮体系 .btn） */
+.btn{
+  border:1px solid var(--card-border);
+  border-radius:10px;
+  background:#0e1628;
+  color: var(--text);
+  padding:8px 12px;
+  cursor:pointer; font-weight:600;
+  transition: filter .2s ease, background .2s ease, opacity .2s ease;
+}
 .btn:hover{ filter:brightness(1.1); }
-.btn.primary{ background:linear-gradient(135deg,#3bd0ff,#2dd4bf); color:#0a1020; border-color:transparent; }
-.btn.subtle{ background:#09101e; color:var(--ink-weak); }
+.btn:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.btn:disabled{
+  opacity:.55;
+  cursor: not-allowed;
+}
+.btn.primary{
+  background:linear-gradient(135deg,#3bd0ff,#2dd4bf);
+  color:#0a1020; border-color:transparent;
+}
+.btn.subtle{ background:#09101e; color:#9fb2c8; }
 
 /* 弹窗 */
-.modal{ position:fixed; inset:0; background:rgba(0,0,0,.5);
-  display:none; align-items:center; justify-content:center; z-index:1000; }
+.modal{
+  position:fixed; inset:0; background:rgba(0,0,0,.5);
+  display:none; align-items:center; justify-content:center; z-index:1000;
+}
 .modal.open{ display:flex; }
-.modal__box{ width:min(92vw,420px); background:var(--card-bg); border:1px solid var(--card-border);
-  border-radius:16px; padding:18px; box-shadow:0 16px 40px rgba(0,0,0,.45); color:var(--text); text-align:center; }
-.modal__box h3{ margin:0 0 6px; color:#fff; }
+.modal__box{
+  width:min(92vw,420px);
+  background: var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:16px; padding:18px;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
+  color: var(--text); text-align:center;
+}
+.modal__box h3{
+  margin:0 0 6px;
+  color: var(--heading); /* 与全局标题色一致 */
+}
 .modal__actions{ display:flex; gap:10px; justify-content:center; margin-top:12px; }
+
+/* 小屏适配：卡片内边距收紧些 */
+@media (max-width: 480px){
+  .game-card{ padding: 14px; }
+}

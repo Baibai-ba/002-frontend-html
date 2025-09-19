@@ -1,15 +1,17 @@
-/* ===== 游戏列表容器 ===== */
+/* ===== 首页：游戏大厅卡片样式（统一风格） ===== */
+
+/* 区块容器 */
 .games {
   margin: 24px 0;
 }
 .games > h2 {
   margin: 0 0 12px;
   font-size: 1.2rem;
-  color: #e6edf3;
+  color: var(--heading);
   letter-spacing: .2px;
 }
 
-/* 自适应网格：最多 4 列，窄屏自动缩为 2/1 列 */
+/* 自适应网格：最多 4 列，窄屏自动缩为 3/2/1 列 */
 .game-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -25,8 +27,8 @@
   .game-list { grid-template-columns: 1fr; }
 }
 
-/* ===== 卡片（链接/占位统一外观） ===== */
-.game-entry {
+/* 卡片（链接/占位统一外观；仅限大厅作用） */
+.game-list .game-entry {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,36 +36,45 @@
 
   padding: 16px 12px;
   border-radius: 14px;
-  border: 1px solid #141c2b;
-  background: #0b1220;
-
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text);
   text-decoration: none;
-  color: #dbe6f1;
 
   box-shadow: 0 8px 24px rgba(0,0,0,.25);
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+  transition: transform .15s ease,
+              box-shadow .15s ease,
+              border-color .15s ease,
+              background .15s ease,
+              opacity .15s ease;
 }
 
-/* div.disabled 也复用同样的外观 */
-.game-entry.disabled {
+/* 禁用占位（不可点击） */
+.game-list .game-entry.disabled {
   cursor: not-allowed;
   pointer-events: none;
   opacity: .55;
+  background-image:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.03) 25%, transparent 25%,
+      transparent 50%, rgba(255,255,255,0.03) 50%,
+      rgba(255,255,255,0.03) 75%, transparent 75%, transparent);
+  background-size: 16px 16px;
 }
 
 /* 悬停/聚焦态（仅可点击项） */
-a.game-entry:hover,
-a.game-entry:focus-visible {
+.game-list a.game-entry:hover,
+.game-list a.game-entry:focus-visible {
   transform: translateY(-2px);
   border-color: #223051;
   box-shadow: 0 12px 30px rgba(0,0,0,.35);
-  background: #0e1626;
+  background: #0e1626; /* 比 var(--card-bg) 稍亮一点的层次 */
   outline: none;
 }
 
-/* 键盘可达性 */
-a.game-entry:focus-visible {
-  outline: 2px solid #2dd4bf;
+/* 键盘可达性高亮 */
+.game-list a.game-entry:focus-visible {
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -74,24 +85,16 @@ a.game-entry:focus-visible {
 }
 .game-entry__title {
   font-weight: 700;
-  color: #eef4fb;
+  color: var(--heading);
   text-align: center;
   font-size: 1rem;
 }
 
-/* 可选：给“即将上线”做一个轻微条纹背景（仅禁用项） */
-.game-entry.disabled {
-  background-image: linear-gradient(135deg, rgba(255,255,255,0.03) 25%, transparent 25%,
-                                    transparent 50%, rgba(255,255,255,0.03) 50%,
-                                    rgba(255,255,255,0.03) 75%, transparent 75%, transparent);
-  background-size: 16px 16px;
-}
-
-/* 若你的全局 .card 有内边距/圆角，这里补一些对齐 */
+/* 大厅外层卡片（如果外面包 .card） */
 .games.card {
-  border: 1px solid #141c2b;
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 16px;
-  background: #0a0f1a;
+  background: var(--card-bg);
   box-shadow: 0 10px 28px rgba(0,0,0,.25);
 }

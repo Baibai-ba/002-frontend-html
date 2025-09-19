@@ -5,24 +5,27 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>猜4位数（A/B）</title>
   <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <!-- 全局 -->
   <link rel="stylesheet" href="../assets/base.css" />
+  <!-- 本页样式 -->
   <link rel="stylesheet" href="../assets/components/game-number4.css" />
 </head>
 <body>
+  <!-- 顶部导航（只需样式） -->
   <header data-include="../components/header.html" data-assets="css"></header>
 
   <main class="wrap">
     <section class="card">
       <h1>猜 4 位数（A/B）</h1>
       <p class="desc">
-        规则：系统会生成一个「不含重复数字」的 4 位数。<br>
-        每次输入一个 4 位数作为猜测，得到反馈 <strong>A</strong> 和 <strong>B</strong>：<br>
+        规则：系统会生成一个「不含重复数字」的 4 位数。<br />
+        每次输入一个 4 位数作为猜测，得到反馈 <strong>A</strong> 和 <strong>B</strong>：<br />
         <strong>A</strong> 表示数字和位置都正确的个数，<strong>B</strong> 表示数字正确但位置不对的个数。
       </p>
 
       <div class="play">
         <div class="row">
-          <input id="guess-input" maxlength="4" inputmode="numeric" placeholder="请输入 4 位数（不重复）">
+          <input id="guess-input" maxlength="4" inputmode="numeric" placeholder="请输入 4 位数（不重复）" />
           <button id="btn-submit">提交</button>
           <button id="btn-reset" class="ghost">重开一局</button>
         </div>
@@ -36,9 +39,14 @@
     </section>
   </main>
 
+  <!-- 签到弹层（需要样式 + 脚本） -->
+  <div data-include="../components/hello.html" data-assets="css,js"></div>
+
   <footer class="site-footer">© 白霸的小游戏合集</footer>
 
+  <!-- 通用加载器 -->
   <script src="../assets/loader.js"></script>
+  <!-- 本页脚本 -->
   <script src="../assets/components/game-number4.js"></script>
 </body>
 </html>

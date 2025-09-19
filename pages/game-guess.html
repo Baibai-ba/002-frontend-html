@@ -4,15 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>猜数字 · 白霸的小游戏合集</title>
-
-  <link rel="icon" href="../assets/favicon.ico" />
+  <meta name="description" content="1–100 猜数字小游戏，10 次机会，越少越好！" />
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon" />
+  <!-- 全局样式 -->
   <link rel="stylesheet" href="../assets/base.css" />
-  <!-- 独立样式：猜数字 1–100 -->
+  <!-- 本页独立样式：猜数字 1–100 -->
   <link rel="stylesheet" href="../assets/components/game-guess.css" />
 </head>
 
-<body class="no-checkin">
-  <!-- 顶部导航（子页注入组件） -->
+<body>
+  <!-- 顶部导航（子页注入组件，仅需样式） -->
   <header data-include="../components/header.html" data-assets="css"></header>
 
   <main class="container">
@@ -34,7 +35,7 @@
         <button id="action-btn" class="btn primary" type="submit">开始游戏</button>
       </form>
 
-      <!-- 状态区（精简） -->
+      <!-- 状态区 -->
       <div class="status">
         <div id="feedback" class="feedback">点击“开始游戏”生成目标数字。</div>
         <div class="meta">
@@ -56,9 +57,16 @@
     </div>
   </div>
 
-  <!-- 组件注入与页面脚本 -->
+  <!-- 通用：签到弹层（需要样式 + 脚本） -->
+  <div data-include="../components/hello.html" data-assets="css,js"></div>
+
+  <footer class="site-footer">© 白霸的小游戏合集</footer>
+
+  <!-- 通用加载器（负责注入组件 + 同名 CSS/JS） -->
   <script src="../assets/loader.js"></script>
-  <!-- 独立脚本：猜数字 1–100 -->
+  <!-- 本页独立脚本：猜数字 1–100 -->
   <script src="../assets/components/game-guess.js"></script>
+
+  <noscript>需要启用 JavaScript 才能正常使用本页面。</noscript>
 </body>
 </html>
