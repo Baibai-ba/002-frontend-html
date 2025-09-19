@@ -1,4 +1,12 @@
-/* ===== 可见性 & 层级：关键修复 ===== */
+/* Fallback 变量，若你的 base.css 已定义可省略 */
+:root{
+  --card-bg:#0b1220;
+  --card-border:#141c2b;
+  --text:#e6edf3;
+  --accent:#2dd4bf;
+}
+
+/* ===== 可见性 & 层级 ===== */
 .hello-modal[aria-hidden="true"] { display: none; }
 
 .hello-modal{
@@ -7,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* 保证覆在页面最上面 */
+  z-index: 1000;
 }
 
 .hello-modal__mask{
@@ -38,6 +46,7 @@
   appearance:none; border:none; cursor:pointer;
   background:#1f2937; color:#e6edf3;
   border-radius:8px; padding:4px 8px;
+  line-height:1;
 }
 .hello-modal__close:hover{ background:#2b3646; }
 

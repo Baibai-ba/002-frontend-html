@@ -4,17 +4,17 @@
   <div class="hello-modal__panel" role="dialog" aria-modal="true" aria-labelledby="helloCalTitle">
     <div class="hello-modal__head">
       <strong id="helloCalTitle">签到日历</strong>
-      <button class="hello-modal__close" title="关闭" data-close="1">×</button>
+      <button class="hello-modal__close" title="关闭" data-close="1" aria-label="关闭">×</button>
     </div>
 
     <div class="hello-cal">
       <div class="hello-cal__toolbar">
         <button id="helloCalPrev" class="hello-cal__nav" aria-label="上个月">‹</button>
-        <div id="helloCalLabel" class="hello-cal__label"></div>
+        <div id="helloCalLabel" class="hello-cal__label" aria-live="polite"></div>
         <button id="helloCalNext" class="hello-cal__nav" aria-label="下个月">›</button>
       </div>
 
-      <div class="hello-cal__grid hello-cal__grid--head">
+      <div class="hello-cal__grid hello-cal__grid--head" aria-hidden="true">
         <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
       </div>
       <div id="helloCalGrid" class="hello-cal__grid"></div>

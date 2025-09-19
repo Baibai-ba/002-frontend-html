@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>猜4位数（A/B）</title>
+  <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../assets/base.css" />
+  <link rel="stylesheet" href="../assets/components/game-number4.css" />
+</head>
+<body>
+  <header data-include="../components/header.html" data-assets="css"></header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>猜 4 位数（A/B）</h1>
+      <p class="desc">
+        规则：系统会生成一个「不含重复数字」的 4 位数。<br>
+        每次输入一个 4 位数作为猜测，得到反馈 <strong>A</strong> 和 <strong>B</strong>：<br>
+        <strong>A</strong> 表示数字和位置都正确的个数，<strong>B</strong> 表示数字正确但位置不对的个数。
+      </p>
+
+      <div class="play">
+        <div class="row">
+          <input id="guess-input" maxlength="4" inputmode="numeric" placeholder="请输入 4 位数（不重复）">
+          <button id="btn-submit">提交</button>
+          <button id="btn-reset" class="ghost">重开一局</button>
+        </div>
+        <p id="tip" class="tip">已开局，来试一发吧！</p>
+      </div>
+
+      <div class="history">
+        <h2>历史记录</h2>
+        <ul id="history-list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">© 白霸的小游戏合集</footer>
+
+  <script src="../assets/loader.js"></script>
+  <script src="../assets/components/game-number4.js"></script>
+</body>
+</html>

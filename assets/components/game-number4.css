@@ -1,0 +1,32 @@
+/* 卡片与布局复用深色基调 */
+.wrap { max-width: 720px; margin: 24px auto; padding: 0 16px; }
+.card {
+  background: #0b1220; color: #e6eef8; border: 1px solid #141c2b;
+  border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,.3);
+}
+.card h1 { margin: 0 0 8px; font-size: 22px; }
+.desc { color: #9ab; line-height: 1.7; }
+
+.play .row { display: flex; gap: 10px; margin: 16px 0; }
+#guess-input{
+  flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid #1b2740;
+  background: #0e1626; color: #e6eef8; font-size: 16px; letter-spacing: 2px;
+}
+button{
+  padding: 10px 14px; border: 1px solid #1b2740; background: #122040; color: #eef;
+  border-radius: 10px; cursor: pointer;
+}
+button:hover{ background:#1a2b57; }
+button.ghost{ background: transparent; }
+
+.tip{ color:#9bd; min-height: 1.5em; }
+
+.history h2{ font-size: 18px; margin: 16px 0 8px; }
+#history-list{ list-style: none; padding: 0; margin: 0; }
+#history-list li{
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 12px; border: 1px solid #15223d; border-radius: 10px; margin-bottom: 8px;
+  background: #0f1830;
+}
+.bad { color: #f6a; }    /* 输入校验提示 */
+.good { color: #8f8; }   /* 胜利提示 */

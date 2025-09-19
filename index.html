@@ -4,24 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>白霸的小游戏合集</title>
+  <meta name="description" content="白霸的小游戏合集：轻量有趣的小游戏，支持签到日历与移动端体验" />
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <!-- 全局样式 -->
   <link rel="stylesheet" href="assets/base.css" />
 </head>
 <body>
-  <!-- 顶部导航：只需样式，不需要 JS -->
+  <!-- 顶部导航（只需样式） -->
   <header data-include="components/header.html" data-assets="css"></header>
 
   <main class="container">
-    <!-- 游戏列表：需要 HTML + CSS + JS -->
-    <section data-include="components/games.html"></section>
+    <!-- 游戏列表（只需样式） -->
+    <section data-include="components/games.html" data-assets="css"></section>
   </main>
 
-  <!-- 签到弹层（隐藏，但需要 HTML + CSS + JS 才能工作） -->
-  <div data-include="components/hello.html"></div>
+  <!-- 签到弹层（需要样式 + 脚本） -->
+  <div data-include="components/hello.html" data-assets="css,js"></div>
 
   <footer class="site-footer">© 白霸的小游戏合集</footer>
 
-  <!-- 通用加载器 -->
+  <!-- 通用组件加载器（负责注入 HTML 并按需加载同名 CSS/JS） -->
   <script src="assets/loader.js"></script>
+
+  <!-- 无脚本降级提示（可选） -->
+  <noscript>需要启用 JavaScript 才能正常使用本页面。</noscript>
 </body>
 </html>

@@ -1,4 +1,5 @@
 // assets/loader.js
+// === 组件注入（data-include）+ 按需加载对应 CSS/JS（去重/健壮路径） ===
 (async function () {
   const slots = Array.from(document.querySelectorAll('[data-include]'));
 
@@ -11,19 +12,22 @@
     }
   }
 
+  function hasAsset(tag, hrefOrSrc) {
+    const selector =
+      tag === 'link'
+        ? `link[rel="stylesheet"][href="${hrefOrSrc}"]`
+        : `script[src="${hrefOrSrc}"]`;
+    return !!document.head.querySelector(selector) || !!document.body.querySelector(selector);
+  }
+
   for (const el of slots) {
-    const includePath = el.getAttribute('data-include'); // e.g. "components/header.html" 或 "../components/header.html"
-    const baseName = (includePath.split('/').pop() || '').replace(/\.html?$/i, ''); // "header"
+    const includePath = el.getAttribute('data-include'); // 如 "components/header.html" 或 "../components/header.html"
+    if (!includePath) continue;
 
-    // 读 data-assets（默认同时加载 css+js）
-    const assetsAttr = (el.getAttribute('data-assets') || 'css,js').toLowerCase();
-    const wantCSS = assetsAttr.includes('css');
-    const wantJS  = assetsAttr.includes('js');
-
-    // 1) 注入 HTML（把 includePath 解析成绝对 URL 再请求）
+    // 1) 注入 HTML（使用 URL 解析保证在子目录/不同页面也能正确拼路径）
     let htmlURL;
     try {
-      htmlURL = new URL(includePath, location.href);     // 兼容子目录
+      htmlURL = new URL(includePath, location.href); // 解析为绝对 URL
       const res = await fetch(htmlURL.href);
       if (!res.ok) throw new Error(`Fetch ${includePath} ${res.status}`);
       el.innerHTML = await res.text();
@@ -32,20 +36,32 @@
       continue;
     }
 
-    // 2) 计算 CSS/JS 的正确位置：
-    //    已知 htmlURL 指向 ".../components/header.html"
-    //    我们要从这个位置回到上一级，再去 "../assets/components/header.css|js"
+    // 2) 读取 data-assets 配置：
+    //    - 默认 "css,js"
+    //    - 若含 "none" 则两者都不加载
+    const assetsAttr = (el.getAttribute('data-assets') || 'css,js').toLowerCase();
+    const wantNone = assetsAttr.includes('none');
+    const wantCSS = !wantNone && assetsAttr.includes('css');
+    const wantJS  = !wantNone && assetsAttr.includes('js');
+
+    // 3) 更稳的 baseName：用解析后的 pathname 提取文件名（避免 query/hash 干扰）
+    //      e.g. ".../components/header.html" -> "header"
+    const pathname = htmlURL.pathname; 
+    const baseName = (pathname.split('/').pop() || '').replace(/\.html?$/i, '');
+
+    // 4) 计算 CSS/JS 的正确位置（与你的仓库结构保持一致）：
+    //    组件 HTML 在 components/ 下，对应资源在 ../assets/components/ 下
     const cssURL = new URL(`../assets/components/${baseName}.css`, htmlURL);
     const jsURL  = new URL(`../assets/components/${baseName}.js`,  htmlURL);
 
-    // 3) 按需加载
-    if (wantCSS && await exists(cssURL.href)) {
+    // 5) 按需加载（带去重 + 存在性检测）
+    if (wantCSS && !hasAsset('link', cssURL.href) && await exists(cssURL.href)) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = cssURL.href;
       document.head.appendChild(link);
     }
-    if (wantJS && await exists(jsURL.href)) {
+    if (wantJS && !hasAsset('script', jsURL.href) && await exists(jsURL.href)) {
       const s = document.createElement('script');
       s.src = jsURL.href;
       document.body.appendChild(s);
@@ -61,17 +77,17 @@
   const baseURL = new URL(basePath, location.origin);
 
   function apply() {
-    const cur = location.pathname; // 当前路径（不含 ?/#）
+    const cur = location.pathname.replace(/\/+$/, ''); // 标准化当前路径
 
     document.querySelectorAll('a[data-href]').forEach(a => {
-      const to = a.getAttribute('data-href');            // 如 "pages/guess.html"
-      const href = new URL(to, baseURL).pathname;        // 生成标准路径
+      const to = a.getAttribute('data-href');            // 如 "pages/guess.html" 或 "index.html"
+      const href = new URL(to, baseURL).pathname.replace(/\/+$/, '');
       a.setAttribute('href', href);
       a.removeAttribute('data-href');
 
       // === 高亮逻辑 ===
-      const isHomeTarget = to.endsWith('index.html');
-      const isHomeNow = (cur === basePath || cur === basePath + 'index.html');
+      const isHomeTarget = /(?:^|\/)index\.html$/.test(to);
+      const isHomeNow = (cur === basePath.replace(/\/$/, '') || cur === (basePath + 'index.html').replace(/\/+$/, ''));
       if ((isHomeTarget && isHomeNow) || cur === href) {
         a.classList.add('active');
       }
@@ -92,7 +108,6 @@
   }
 })();
 
-
 // --- 导航：链接修正 + 当前高亮 + 汉堡菜单 ---
 (function setupHeaderNav() {
   const REPO = '002-frontend-html';
@@ -105,23 +120,22 @@
     const nav = document.getElementById('site-nav');
     const toggle = document.querySelector('.nav-toggle');
 
-    // 1) 修正 data-href → href（带前缀）
+    // 1) 修正 data-href → href（带前缀）+ 高亮
     const curPath = location.pathname.replace(/\/+$/, '');
     nav?.querySelectorAll('a[data-href]').forEach(a => {
-      const to = a.getAttribute('data-href');      // e.g. "pages/guess.html"
-      const href = new URL(to, baseURL).pathname;  // 生成标准路径
+      const to = a.getAttribute('data-href');
+      const href = new URL(to, baseURL).pathname.replace(/\/+$/, '');
       a.setAttribute('href', href);
       a.removeAttribute('data-href');
 
-      // 2) 当前高亮
-      const isHomeTarget = to.endsWith('index.html');
-      const isHomeNow = (curPath === basePath.replace(/\/$/, '') || curPath === basePath + 'index.html');
+      const isHomeTarget = /(?:^|\/)index\.html$/.test(to);
+      const isHomeNow = (curPath === basePath.replace(/\/$/, '') || curPath === (basePath + 'index.html').replace(/\/+$/, ''));
       if ((isHomeTarget && isHomeNow) || curPath === href) {
         a.classList.add('active');
       }
     });
 
-    // 3) 汉堡菜单开关（小屏）
+    // 2) 汉堡菜单开关（小屏）
     if (header && toggle && nav) {
       const open = () => {
         header.classList.add('nav-open');
